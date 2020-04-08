@@ -1,6 +1,16 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import GuestContext from '../../context/guestContext/guestContext';
 
 const GuestCounter = () => {
+
+  const {guests}=useContext(GuestContext);
+  const totalInvited=guests.length;
+  const attending=guests.filter(x=>x.isconfirmed);
+  const totalAttending=attending.length;
+  const invitedByDiet= (type) => guests.filter(guest=> guest.dietary===type).length;
+  const attendingByDiet= (type) => attending.filter(guest=> guest.dietary===type).length;
+
+
   return (
     <div>
       <table>
@@ -12,22 +22,22 @@ const GuestCounter = () => {
           </tr>
           <tr>
             <th>Non-Veg</th>
-            <td>10</td>
-            <td>5</td>
+            <td>{invitedByDiet('Non-Veg')}</td>
+            <td>{attendingByDiet('Non-Veg')}</td>
           </tr>
           <tr>
             <th>Vegan</th>
-            <td>10</td>
-            <td>5</td>
+            <td>{invitedByDiet('Vegan')}</td>
+            <td>{attendingByDiet('Vegan')}</td>
           </tr><tr>
             <th>Pescetarians</th>
-            <td>10</td>
-            <td>5</td>
+            <td>{invitedByDiet('Pascatarian')}</td>
+            <td>{attendingByDiet('Pascatarian')}</td>
           </tr>
           <tr>
             <th>Total</th>
-            <td>10</td>
-            <td>5</td>
+            <td>{totalInvited}</td>
+            <td>{totalAttending}</td>
           </tr>
         </tbody>
       </table>
