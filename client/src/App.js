@@ -7,6 +7,13 @@ import { GuestState } from './context/guestContext/GuestState';
 import Register from './components/pages/Register';
 import Login from './components/pages/Login';
 import AuthState from './context/authContext/authState';
+import PrivateRoute from './components/pages/routes/PrivateRoute';
+import setToken from './components/utils/setToken';
+
+if(localStorage.token)
+{
+  setToken(localStorage.token)
+}
 
 function App() {
   return (
@@ -16,7 +23,7 @@ function App() {
           <div >
             <Navbar/>
             <Switch>
-              <Route exact path='/' component={Home}/>
+              <PrivateRoute exact path='/' component={Home}/>
               <Route exact path='/register' component={Register}/>
               <Route exact path='/login' component={Login}/>
             </Switch>

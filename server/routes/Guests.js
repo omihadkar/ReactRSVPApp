@@ -38,14 +38,14 @@ router.post('/',
       return res.status(400).json({ errors: errors.array() })
     }
 
-    const { name, phone, diet, isconfirmed } = req.body
+    const { name, phone, dietary, isconfirmed } = req.body
 
     try {
       const newGuest = new Guest({
         user: req.user.id,
         name,
         phone,
-        diet,
+        dietary,
         isconfirmed
       })
       const guest = await newGuest.save()
@@ -66,10 +66,10 @@ router.post('/',
 
 
 router.put('/:id', auth, async (req, res) => {
-    const { name, phone, diet, isconfirmed } = req.body
+    const { name, phone, dietary, isconfirmed } = req.body
   
     // build Guest object 
-    const guestFields = { name, phone, diet, isconfirmed };
+    const guestFields = { name, phone, dietary, isconfirmed };
   
     try {
       let guest = await Guest.findById(req.params.id)

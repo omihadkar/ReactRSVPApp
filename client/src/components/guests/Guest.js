@@ -2,17 +2,22 @@ import React , {useContext}from 'react'
 import GuestContext from '../../context/guestContext/guestContext';
 
 const Guest = ({guest}) => {
-const {id,name,phone,dietary,isconfirmed}=guest;
+const {_id,name,phone,dietary,isconfirmed}=guest;
 
   const {removeGuest, updateGuest, editGuest}=useContext(GuestContext);
 
   const handleRemove=()=>{
-    removeGuest(id);
+    removeGuest(_id);
   }
 
   const handleIsConfirmed=()=>{
     updateGuest({...guest,isconfirmed:!isconfirmed});
   }
+
+const editMyGuest=()=>{  
+  editGuest(guest);
+}
+
   return (
     <div className="guest-card">
       <div className="card-head">
@@ -24,7 +29,7 @@ const {id,name,phone,dietary,isconfirmed}=guest;
           </label>
         </div>
         <div>
-          <button onClick={()=>editGuest(guest)}>
+          <button onClick={editMyGuest}>
             <i className="fas fa-user-edit"></i>
           </button>
           <button onClick={handleRemove}>

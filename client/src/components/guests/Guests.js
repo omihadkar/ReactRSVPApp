@@ -1,9 +1,13 @@
-import React, {useContext} from 'react'
+import React, {useContext,useEffect} from 'react'
 import Guest from './Guest'
 import GuestContext from '../../context/guestContext/guestContext'
 
 const Guests = () => {
-const {guests, filterGuest,search}= useContext(GuestContext)
+const {guests, filterGuest,search,getGuests}= useContext(GuestContext)
+
+useEffect(()=>{
+  getGuests()
+},[])
 
   return (
     <div className="guests">

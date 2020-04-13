@@ -38,6 +38,7 @@ const GuestForm = () => {
     e.preventDefault();
     
     if (editable!==null) {
+      console.log(guest.dietary)
       updateGuest(guest)
         clearEdit();
     }
