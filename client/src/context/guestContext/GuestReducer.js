@@ -1,12 +1,18 @@
-import { TOGGLE_FILTER, SEARCH_GUEST, CLEAR_SEARCH, ADD_GUEST, REMOVE_GUEST, UPDATE_GUEST, EDIT_GUEST, CLEAR_EDIT, GET_GUESTS, GUESTS_ERROR } from '../types';
+import { TOGGLE_FILTER, SEARCH_GUEST, CLEAR_SEARCH, ADD_GUEST, REMOVE_GUEST, UPDATE_GUEST, EDIT_GUEST, CLEAR_EDIT, GET_GUESTS, GUESTS_ERROR,REQUEST_ENDPOINT } from '../types';
 
 function GuestReducer(state, {type,payload}) {
     
     switch (type) {
+        case REQUEST_ENDPOINT:
+            return{
+                ...state,                
+                requestedResponse:true
+            };
         case GET_GUESTS:
             return{
                 ...state,
-                guests: payload
+                guests: payload,
+                requestedResponse:false
             };
         case REMOVE_GUEST:
             return{
@@ -37,8 +43,8 @@ function GuestReducer(state, {type,payload}) {
             return{
                 ...state,
                 guests:[],
-                errors: payload
-                
+                errors: payload,
+                requestedResponse:false                
             }
         case TOGGLE_FILTER:
             return {...state,filterGuest: !state.filterGuest};

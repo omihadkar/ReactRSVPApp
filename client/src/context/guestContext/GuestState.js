@@ -1,13 +1,14 @@
 import React,{useReducer} from 'react'
 import GuestContext from './guestContext'
 import GuestReducer from './GuestReducer';
-import { TOGGLE_FILTER, SEARCH_GUEST, CLEAR_SEARCH, ADD_GUEST, REMOVE_GUEST, UPDATE_GUEST, EDIT_GUEST, CLEAR_EDIT, GET_GUESTS, GUESTS_ERROR } from '../types';
+import { TOGGLE_FILTER, SEARCH_GUEST, CLEAR_SEARCH, ADD_GUEST, REMOVE_GUEST, UPDATE_GUEST, EDIT_GUEST, CLEAR_EDIT, GET_GUESTS, GUESTS_ERROR, REQUEST_ENDPOINT } from '../types';
 import axios from 'axios'
 import setToken from '../../components/utils/setToken';
 
 export const GuestState = (props) => {
 
     const initialState={
+        requestedResponse:true,
         filterGuest:false,
         search:null,
         editable:null,
@@ -22,19 +23,20 @@ export const GuestState = (props) => {
         // const config ={
         //     header:{ 'Content-Type': 'application/json'}
         // }
+        dispatch({type: REQUEST_ENDPOINT});
         if(localStorage.token)
         {
             setToken(localStorage.token)
         }
 
-        try {
+        try {            
             const res = await axios.get('/guests');
             dispatch({
                 type: GET_GUESTS,
                 payload: res.data
             })
 
-        } catch (error) {
+        } catch (error) {            
             dispatch({
                 type: GUESTS_ERROR,
                 payload: error.response.msg
@@ -119,6 +121,7 @@ export const GuestState = (props) => {
     return (        
             <GuestContext.Provider
             value={{
+                requestedResponse:state.requestedResponse,
                 guests: state.guests,
                 filterGuest: state.filterGuest,
                 search: state.search,

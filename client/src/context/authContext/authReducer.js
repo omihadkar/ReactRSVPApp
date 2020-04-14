@@ -14,6 +14,7 @@ function authReducer(state, action) {
         case LOG_OUT:
         case AUTH_ERROR:
             localStorage.removeItem('token');
+            localStorage.removeItem('userAuth');
             return{
                 ...state,
                 userAuth:null,
@@ -22,6 +23,7 @@ function authReducer(state, action) {
         case REGISTER_SUCCESS:
         case LOGIN_SUCCESS:
             localStorage.setItem('token',action.payload.token)
+            localStorage.setItem('userAuth',true)
                 return{
                     ...state,
                     userAuth:true,
